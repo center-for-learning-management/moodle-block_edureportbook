@@ -10,3 +10,9 @@ That way a moodle forum using separated groups can be used
 for a private communication between parents and teachers.
 
 Optionally students can too be member of the group.
+
+![The block](doc/img/01_block.png)
+![Setting relations](doc/img/02_relations.png)
+![Groupmode](doc/img/03_groupmode.png)
+
+For installation and configuration please refer to our [installation-reference](doc/installation.md).
