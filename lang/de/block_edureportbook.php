@@ -22,6 +22,7 @@
  */
 
 $string['pluginname'] = 'Mitteilungsheft-Assistent';
+$string['privacy:metadata'] = 'Dieses Plugin speichert keine personenbezogenen Daten';
 $string['edureportbook:addinstance'] = 'Mitteilungsheft einrichten';
 $string['edureportbook:myaddinstance'] = 'Mitteilungsheft einrichten';
 

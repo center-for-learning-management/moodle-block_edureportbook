@@ -22,6 +22,7 @@
  */
 
 $string['pluginname'] = 'eduReportbook';
+$string['privacy:metadata'] = 'This plugin does not store any personal data';
 $string['edureportbook:addinstance'] = 'Add eduReportbook';
 $string['edureportbook:myaddinstance'] = 'Add eduReportbook';
 
