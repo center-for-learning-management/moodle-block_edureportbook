@@ -42,6 +42,8 @@ $string['role_student:description'] = 'Wählen Sie die Rolle, die SchülerInnen 
 
 $string['separate'] = 'Privatsphäre';
 $string['separate:description'] = 'Um private Kommunikationskanäle rund um jedeN SchülerIn aufzubauen empfiehlt es sich den Gruppenmodus zu aktivieren. Die Empfehlung lautet "Getrennte Gruppen" einzustellen, damit die Kommunikation auch wirklich von niemand anderem gelesen werden kann. Die hier getroffene Einstellung ist für den ganzen Kurs bindend!';
+$string['separate:error'] = 'Konnte die Privatsphäre einstellen!';
+$string['separate:success'] = 'Privatsphäre wurde eingestelltt!';
 
 $string['step_enrol'] = 'SchülerInnen';
 $string['step_enrol_legalguardians'] = 'Erziehungsberechtigte';

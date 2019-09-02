@@ -42,6 +42,8 @@ $string['role_student:description'] = 'Select the role a student will have withi
 
 $string['separate'] = 'Separation';
 $string['separate:description'] = 'If you want to have private communication channels to the legal guardians of each of your students you can enable the groupmode. It is recommended to choose "separated groups" to ensure, that private communication will not be visible to others. What ever you choose here will be mandatory for the whole course!';
+$string['separate:error'] = 'Could not set up privacy mode';
+$string['separate:success'] = 'Successfully set privacy mode';
 
 $string['step_enrol'] = 'Enrol users';
 $string['step_enrol_legalguardians'] = 'Enrol legal guardians';

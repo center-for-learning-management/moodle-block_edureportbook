@@ -27,7 +27,7 @@ require_once($CFG->libdir . '/adminlib.php');
 require_once($CFG->dirroot . '/blocks/moodleblock.class.php');
 require_once($CFG->dirroot . '/blocks/edureportbook/lib.php');
 
-class block_edureportbook extends block_list {
+class block_edureportbook extends block_base {
     // NON STATIC AREA
     public function init() {
         $this->title = get_string('pluginname', 'block_edureportbook');
@@ -39,8 +39,8 @@ class block_edureportbook extends block_list {
         global $CFG, $COURSE, $DB, $PAGE, $USER;
 
         $this->content = (object) array(
-            'items' => array(),
-            'footer' => array()
+            'text' => '',
+            'footer' => ''
         );
         $options = array();
 
@@ -77,14 +77,14 @@ class block_edureportbook extends block_list {
                     "id" => 'block_edureportbook_stepbtn-1',
                     "title" => $counter++ . '.) ' . get_string('step_enrol', 'block_edureportbook'),
                     "href" => $CFG->wwwroot . '/enrol/manual/manage.php?enrolid=' . $enrolinstance->id .  '&id=' . $COURSE->id,
-                    "onclick" => '$("#' . $singleid . ' input:first-child").click(); require(["block_edureportbook/main"], function(MAIN){ MAIN.enrolmentrole(' . $role_student . '); }); return false;',
+                    "onclick" => "$('#" . $singleid . " input:first-child').click(); require(['block_edureportbook/main'], function(MAIN){ MAIN.enrolmentrole(" . $role_student . "); }); return false;",
                     "icon" => '/pix/i/assignroles.svg',
                 );
                 $options[] = array(
                     "id" => 'block_edureportbook_stepbtn-2',
                     "title" => $counter++ . '.) ' . get_string('step_enrol_legalguardians', 'block_edureportbook'),
                     "href" => $CFG->wwwroot . '/enrol/manual/manage.php?enrolid=' . $enrolinstance->id .  '&id=' . $COURSE->id,
-                    "onclick" => '$("#' . $singleid . ' input:first-child").click(); require(["block_edureportbook/main"], function(MAIN){ MAIN.enrolmentrole(' . $role_legalguardian . '); }); return false;',
+                    "onclick" => "$('#" . $singleid . " input:first-child').click(); require(['block_edureportbook/main'], function(MAIN){ MAIN.enrolmentrole(" . $role_legalguardian . "); }); return false;",
                     "icon" => '/pix/i/checkpermissions.svg',
                 );
             } else {
@@ -108,43 +108,35 @@ class block_edureportbook extends block_list {
                 "id" => 'block_edureportbook_stepbtn-3',
                 "title" => ($counter++) . '.) ' . get_string('step_studentassign', 'block_edureportbook'),
                 "href" => $CFG->wwwroot . '/blocks/edureportbook/pages/assignstudents.php?id=' . $COURSE->id,
-                "onclick" => 'require(["block_edureportbook/main"], function(MAIN){ MAIN.participantsform(' . $COURSE->id . '); }); return false;',
+                "onclick" => "require(['block_edureportbook/main'], function(MAIN){ MAIN.participantsform(" . $COURSE->id . "); }); return false;",
                 "icon" => '/pix/i/users.svg',
             );
             $options[] = array(
                 "id" => 'block_edureportbook_stepbtn-4',
                 "title" => ($counter++) . '.) ' . get_string('step_separate_groups', 'block_edureportbook'),
                 "href" => $CFG->wwwroot . '/blocks/edureportbook/pages/separate.php?id=' . $COURSE->id,
-                "onclick" => 'require(["block_edureportbook/main"], function(MAIN){ MAIN.separateform(' . $COURSE->id . '); }); return false;',
+                "onclick" => "require(['block_edureportbook/main'], function(MAIN){ MAIN.separateform(" . $COURSE->id . "); }); return false;",
                 "icon" => '/pix/i/permissions.svg',
             );
             $options[] = array(
                 "id" => 'block_edureportbook_stepbtn-5',
                 "title" => ($counter++) . '.) ' . get_string('step_remove_block', 'block_edureportbook'),
                 "href" => $CFG->wwwroot . '/blocks/edureportbook/pages/removeblock.php?id=' . $COURSE->id,
-                "onclick" => 'require(["block_edureportbook/main"], function(MAIN){ MAIN.removeblock(' . $COURSE->id . '); }); return false;',
+                "onclick" => "require(['block_edureportbook/main'], function(MAIN){ MAIN.removeblock(" . $COURSE->id . "); }); return false;",
                 "icon" => '/pix/i/completion-auto-enabled.svg',
             );
         }
 
         foreach($options AS $option) {
-            if (isset($option["href"])) {
-                $this->content->items[] = html_writer::tag('a', $option["title"], $option); // array('href' => $option["href"])
-                if (!empty($option["icon"])) {
-                    $this->content->icons[] = html_writer::empty_tag('img', array('src' => $option["icon"], 'class' => 'icon'));
-                } else {
-                    $this->content->icons[] = '&nbsp;';
-                }
-                if (isset($option["subtitle"])) {
-                    $this->content->items[] = html_writer::tag('p',  $option["subtitle"]); // array('href' => $option["href"])
-                    $this->content->icons[] = '&nbsp;';
-                }
-            } else {
-                if (!isset($option["class"])) { $option["class"] = 'divider'; }
-                $this->content->items[] = html_writer::tag('div', $option["title"], $option);
-                $this->content->icons[] = '';
-            }
+            $tx = $option["title"];
+            if (!empty($option["icon"])) $tx = "<img src='" . $CFG->wwwroot . '/' . $option["icon"] . "' class='icon'>" . $tx;
+            if (!empty($option["href"])) $tx = "
+                <a href='" . $option["href"] . "' " . ((!empty($option["onclick"])) ? " onclick=\"" . $option["onclick"] . "\"" : "") . "
+                   " . ((!empty($option["target"])) ? " target=\"" . $option["target"] . "\"" : "") . "'>" . $tx . "</a>";
+            else  $tx = "<a>" . $tx . "</a>";
+            $this->content->text .= $tx . "<br />";
         }
+
         $this->content->footer = implode('', $this->content->footer);
         return $this->content;
     }

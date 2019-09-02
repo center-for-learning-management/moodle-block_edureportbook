@@ -22,14 +22,16 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$roles = $DB->get_records_sql('SELECT r.* FROM {role} AS r, {role_context_levels} AS rcl WHERE r.id=rcl.roleid  AND rcl.contextlevel = 50 ORDER BY r.name ASC', array());
-$options = array();
-foreach($roles AS $role) {
-    $options[$role->id] = (!empty($role->name) ? $role->name : $role->shortname);
+if ($ADMIN->fulltree) {
+    $roles = $DB->get_records_sql('SELECT r.* FROM {role} AS r, {role_context_levels} AS rcl WHERE r.id=rcl.roleid  AND rcl.contextlevel = 50 ORDER BY r.name ASC', array());
+    $options = array();
+    foreach($roles AS $role) {
+        $options[$role->id] = (!empty($role->name) ? $role->name : $role->shortname);
+    }
+
+    $settings->add(new admin_setting_configselect('block_edureportbook/role_legalguardian', get_string('role_legalguardian', 'block_edureportbook'),
+                       get_string('role_legalguardian:description', 'block_edureportbook'), get_config('block_edureportbook', 'role_legalguadian'), $options));
+
+    $settings->add(new admin_setting_configselect('block_edureportbook/role_student', get_string('role_student', 'block_edureportbook'),
+                      get_string('role_student:description', 'block_edureportbook'), get_config('block_edureportbook', 'role_student'), $options));
 }
-
-$settings->add(new admin_setting_configselect('block_edureportbook/role_legalguardian', get_string('role_legalguardian', 'block_edureportbook'),
-                   get_string('role_legalguardian:description', 'block_edureportbook'), get_config('block_legalguardian', 'role_legalguadian'), $options));
-
-$settings->add(new admin_setting_configselect('block_edureportbook/role_student', get_string('role_student', 'block_edureportbook'),
-                  get_string('role_student:description', 'block_edureportbook'), get_config('block_legalguardian', 'role_student'), $options));

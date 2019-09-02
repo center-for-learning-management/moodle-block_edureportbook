@@ -170,12 +170,16 @@ define(
                 methodname: 'block_edureportbook_separatestore',
                 args: { data: JSON.stringify(data) },
                 done: function(result) {
-                    console.log('Got result', result);
-                    if (result == 1) {
-                        alert('yeha');
-                    } else {
-                        alert('damn');
-                    }
+                    //console.log('Got result', result);
+                    modal.hide();
+                    STR.get_strings([
+                            {'key' : 'separate:error', component: 'block_edureportbook' },
+                            {'key' : 'separate:success', component: 'block_edureportbook' },
+                            {'key' : 'separate', component: 'block_edureportbook' },
+                        ]).done(function(s) {
+                            NOTIFICATION.alert(s[2], (result == 1) ? s[1] : s [0]);
+                        }
+                    ).fail(NOTIFICATION.exception);
                 },
                 fail: NOTIFICATION.exception
             }]);
