@@ -28,3 +28,4 @@ $plugin->requires  = 2018050800;        // Requires this Moodle version
 $plugin->component = 'block_edureportbook';    // Full name of the plugin (used for diagnostics)
 $plugin->release = '1';
 $plugin->maturity = MATURITY_STABLE;
+$plugin->release = 'V 1.0';
