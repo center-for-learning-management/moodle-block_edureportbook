@@ -40,7 +40,7 @@ class block_edureportbook extends block_base {
 
         $this->content = (object) array(
             'text' => '',
-            'footer' => ''
+            'footer' => array(),
         );
         $options = array();
 
@@ -137,7 +137,7 @@ class block_edureportbook extends block_base {
             $this->content->text .= $tx . "<br />";
         }
 
-        //$this->content->footer = implode('', $this->content->footer);
+        $this->content->footer = implode('', $this->content->footer);
         return $this->content;
     }
     public function hide_header() {
