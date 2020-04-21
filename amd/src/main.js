@@ -50,8 +50,10 @@ define(
             MAIN = this;
             console.log('block_edureportbook/partipantsstore(modal)', modal);
             var form = $(modal.body).find('form');
+            console.log('Found form', form);
             var arr = form.serializeArray();
             var data = {};
+            console.log('Serialized form', arr);
             for (var a = 0; a < arr.length; a++) {
                 if (arr[a].name.indexOf('[') > 0) {
                     var xname = arr[a].name.split('[');
@@ -68,7 +70,7 @@ define(
                     } else {
                         data[name][data[name].length] = arr[a].value;
                     }
-                } else {
+                } else if(arr[a].value != '_qf__force_multiselect_submission') {
                     data[arr[a].name] = arr[a].value;
                 }
             }

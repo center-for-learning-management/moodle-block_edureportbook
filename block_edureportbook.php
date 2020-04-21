@@ -54,55 +54,39 @@ class block_edureportbook extends block_base {
             $counter = 1;
             $role_legalguardian = get_config('block_edureportbook', 'role_legalguardian');
             $role_student = get_config('block_edureportbook', 'role_student');
-            if (block_edureportbook_lib::can_enrol_eduvidual()) {
-                if (strpos($_SERVER["SCRIPT_FILENAME"], '/user/index.php') > 0) {
-                    $singleid = 'enrolusersbutton-1';
-                } else {
-                    // We only insert this to the footer if we are not already on the enrolments-page.
-                    // Otherwise the button would exist twice.
-                    require_once($CFG->dirroot . '/enrol/locallib.php');
-                    require_once($CFG->dirroot . '/enrol/manual/lib.php');
-                    $manager = new course_enrolment_manager($PAGE, $COURSE);
-                    $emp = new enrol_manual_plugin();
-                    $enrolbutton = $emp->get_manual_enrol_button($manager);
-                    $enrolrenderer = $PAGE->get_renderer('block_edureportbook');
-                    $strbutton = $enrolrenderer->render($enrolbutton);
-                    $singleid = substr($strbutton, 0, strpos($strbutton, '/'));
-                    $strbutton = substr($strbutton, strpos($strbutton, '/') + 1);
-                    $this->content->footer[] = $strbutton;
-                }
 
-                $enrolinstance = block_edureportbook_lib::get_manual_enrol_instance();
-                $options[] = array(
-                    "id" => 'block_edureportbook_stepbtn-1',
-                    "title" => $counter++ . '.) ' . get_string('step_enrol', 'block_edureportbook'),
-                    "href" => $CFG->wwwroot . '/enrol/manual/manage.php?enrolid=' . $enrolinstance->id .  '&id=' . $COURSE->id,
-                    "onclick" => "$('#" . $singleid . " input:first-child').click(); require(['block_edureportbook/main'], function(MAIN){ MAIN.enrolmentrole(" . $role_student . "); }); return false;",
-                    "icon" => '/pix/i/assignroles.svg',
-                );
-                $options[] = array(
-                    "id" => 'block_edureportbook_stepbtn-2',
-                    "title" => $counter++ . '.) ' . get_string('step_enrol_legalguardians', 'block_edureportbook'),
-                    "href" => $CFG->wwwroot . '/enrol/manual/manage.php?enrolid=' . $enrolinstance->id .  '&id=' . $COURSE->id,
-                    "onclick" => "$('#" . $singleid . " input:first-child').click(); require(['block_edureportbook/main'], function(MAIN){ MAIN.enrolmentrole(" . $role_legalguardian . "); }); return false;",
-                    "icon" => '/pix/i/checkpermissions.svg',
-                );
+            if (strpos($_SERVER["SCRIPT_FILENAME"], '/user/index.php') > 0) {
+                $singleid = 'enrolusersbutton-1';
             } else {
-                $options[] = array(
-                    "id" => 'block_edureportbook_stepbtn-1',
-                    "title" => $counter++ . '.) ' . get_string('step_enrol', 'block_edureportbook'),
-                    "href" => '#',
-                    //"onclick" => 'r',
-                    "icon" => '/pix/i/assignroles.svg',
-                );
-                $options[] = array(
-                    "id" => 'block_edureportbook_stepbtn-2',
-                    "title" => $counter++ . '.) ' . get_string('step_enrol_legalguardians', 'block_edureportbook'),
-                    "href" => '#',
-                    //"onclick" => 'r',
-                    "icon" => '/pix/i/checkpermissions.svg',
-                );
+                // We only insert this to the footer if we are not already on the enrolments-page.
+                // Otherwise the button would exist twice.
+                require_once($CFG->dirroot . '/enrol/locallib.php');
+                require_once($CFG->dirroot . '/enrol/manual/lib.php');
+                $manager = new course_enrolment_manager($PAGE, $COURSE);
+                $emp = new enrol_manual_plugin();
+                $enrolbutton = $emp->get_manual_enrol_button($manager);
+                $enrolrenderer = $PAGE->get_renderer('block_edureportbook');
+                $strbutton = $enrolrenderer->render($enrolbutton);
+                $singleid = substr($strbutton, 0, strpos($strbutton, '/'));
+                $strbutton = substr($strbutton, strpos($strbutton, '/') + 1);
+                $this->content->footer[] = $strbutton;
             }
+
+            $enrolinstance = block_edureportbook_lib::get_manual_enrol_instance();
+            $options[] = array(
+                "id" => 'block_edureportbook_stepbtn-1',
+                "title" => $counter++ . '.) ' . get_string('step_enrol', 'block_edureportbook'),
+                "href" => $CFG->wwwroot . '/enrol/manual/manage.php?enrolid=' . $enrolinstance->id .  '&id=' . $COURSE->id,
+                "onclick" => "$('#" . $singleid . " input:first-child').click(); require(['block_edureportbook/main'], function(MAIN){ MAIN.enrolmentrole(" . $role_student . "); }); return false;",
+                "icon" => '/pix/i/assignroles.svg',
+            );
+            $options[] = array(
+                "id" => 'block_edureportbook_stepbtn-2',
+                "title" => $counter++ . '.) ' . get_string('step_enrol_legalguardians', 'block_edureportbook'),
+                "href" => $CFG->wwwroot . '/enrol/manual/manage.php?enrolid=' . $enrolinstance->id .  '&id=' . $COURSE->id,
+                "onclick" => "$('#" . $singleid . " input:first-child').click(); require(['block_edureportbook/main'], function(MAIN){ MAIN.enrolmentrole(" . $role_legalguardian . "); }); return false;",
+                "icon" => '/pix/i/checkpermissions.svg',
+            );
 
             $options[] = array(
                 "id" => 'block_edureportbook_stepbtn-3',

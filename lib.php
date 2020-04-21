@@ -52,14 +52,6 @@ class block_edureportbook_lib {
         );
         return $DB->insert_record('block_instances', $params);
     }
-    /**
-     * Checks if enrolment
-     * @return true if the version.php of enrol/eduvidual exists.
-    **/
-    public static function can_enrol_eduvidual() {
-        global $CFG;
-        return file_exists($CFG->dirroot . '/enrol/eduvidual/version.php');
-    }
 
     /**
      * Checks if there is already a grouping to collect groups created by this plugin. If not creates one.

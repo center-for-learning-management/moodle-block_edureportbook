@@ -23,9 +23,10 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
-    $roles = $DB->get_records_sql('SELECT r.* FROM {role} AS r, {role_context_levels} AS rcl WHERE r.id=rcl.roleid  AND rcl.contextlevel = 50 ORDER BY r.name ASC', array());
+    $roles = $DB->get_records_sql('SELECT r.id,r.name,r.shortname FROM {role} AS r, {role_context_levels} AS rcl WHERE r.id=rcl.roleid  AND rcl.contextlevel = 50 ORDER BY r.name ASC', array());
     $options = array();
     foreach($roles AS $role) {
+        if (empty($role->id)) continue;
         $options[$role->id] = (!empty($role->name) ? $role->name : $role->shortname);
     }
 
