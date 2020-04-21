@@ -2,6 +2,7 @@ define(
     ['jquery', 'core/ajax', 'core/notification', 'core/str', 'core/url', 'core/modal_factory', 'core/modal_events'],
     function($, AJAX, NOTIFICATION, STR, URL, ModalFactory, ModalEvents) {
     return {
+        debug: false,
         enrolmentrole: function(roleid) {
             console.log('block_edureportbook/main.enrolmentrole(roleid)', roleid);
             var MAIN = this;
