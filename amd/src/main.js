@@ -50,10 +50,10 @@ define(
             MAIN = this;
             console.log('block_edureportbook/partipantsstore(modal)', modal);
             var form = $(modal.body).find('form');
-            console.log('Found form', form);
+            //console.log('Found form', form);
             var arr = form.serializeArray();
             var data = {};
-            console.log('Serialized form', arr);
+            //console.log('Serialized form', arr);
             for (var a = 0; a < arr.length; a++) {
                 if (arr[a].name.indexOf('[') > 0) {
                     var xname = arr[a].name.split('[');
@@ -74,7 +74,7 @@ define(
                     data[arr[a].name] = arr[a].value;
                 }
             }
-            console.log('Sending data', data);
+            //console.log('Sending data', data);
             AJAX.call([{
                 methodname: 'block_edureportbook_participantsstore',
                 args: { data: JSON.stringify(data) },
