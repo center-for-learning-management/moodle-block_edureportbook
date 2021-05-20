@@ -1,0 +1,70 @@
+// out: ../style/ui.css, sourcemap: false, compress: true
+
+.edureportbook_assistant_progress {
+    .progressbar {
+        display: grid;
+        grid-gap: 5px;
+
+        &>div {
+            text-align: center;
+            &.active {
+                font-weight: bold;
+                .circle {
+                    background-color: rgba(16,80,127,1);
+                    color: white;
+                }
+            }
+            .circle {
+                display: inline-block;
+                padding: 0;
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                color: rgba(16,80,127,1);
+                font-weight: bold;
+                font-size: 30px;
+                border-radius: 50%;
+                border: 1px solid rgba(16,80,127,1);
+                -webkit-box-shadow: 4px 4px 5px 0px rgba(16,80,127,1);
+                -moz-box-shadow: 4px 4px 5px 0px rgba(16,80,127,1);
+                box-shadow: 4px 4px 5px 0px rgba(16,80,127,1);
+                clear: both;
+                margin-bottom: 10px;
+            }
+        }
+    }
+    &.forums {
+        table {
+            a {
+                color: inherit !important;
+            }
+        }
+    }
+    &.users {
+        .relations {
+            .name-label, .name-label:hover {
+                display: inline-block;
+                padding: 0 5px;
+                margin: 5px 5px;
+                border: 1px solid rgba(16,80,127,1);
+                border-radius: 5px;
+                &.selected {
+                    background-color: rgba(16,80,127,1);
+                    color: white;
+                    font-weight: bold;
+                }
+                &.pending {
+                    opacity: 0.5;
+                }
+                &:hover {
+                    background-color: orange;
+                }
+                .picture {
+                    img {
+                        border-radius: 50%;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -25,44 +25,20 @@ defined('MOODLE_INTERNAL') || die;
 
 // We define the web service functions to install.
 $functions = array(
-    'block_edureportbook_participantsform' => array(
+    'block_edureportbook_relation' => array(
         'classname'   => 'block_edureportbook_external',
-        'methodname'  => 'participantsform',
+        'methodname'  => 'relation',
         'classpath'   => 'blocks/edureportbook/externallib.php',
-        'description' => 'Load the participants-form of a course',
+        'description' => 'Set relation of a user',
+        'type'        => 'write',
+        'ajax'        => 1,
+    ),
+    'block_edureportbook_relations' => array(
+        'classname'   => 'block_edureportbook_external',
+        'methodname'  => 'relations',
+        'classpath'   => 'blocks/edureportbook/externallib.php',
+        'description' => 'Get relations of a user',
         'type'        => 'read',
-        'ajax'        => 1,
-    ),
-    'block_edureportbook_participantsstore' => array(
-        'classname'   => 'block_edureportbook_external',
-        'methodname'  => 'participantsstore',
-        'classpath'   => 'blocks/edureportbook/externallib.php',
-        'description' => 'Store the participants of a course',
-        'type'        => 'write',
-        'ajax'        => 1,
-    ),
-    'block_edureportbook_removeblock' => array(
-        'classname'   => 'block_edureportbook_external',
-        'methodname'  => 'removeblock',
-        'classpath'   => 'blocks/edureportbook/externallib.php',
-        'description' => 'Remove the block of this plugin',
-        'type'        => 'write',
-        'ajax'        => 1,
-    ),
-    'block_edureportbook_separateform' => array(
-        'classname'   => 'block_edureportbook_external',
-        'methodname'  => 'separateform',
-        'classpath'   => 'blocks/edureportbook/externallib.php',
-        'description' => 'Load the separate-form of a course',
-        'type'        => 'read',
-        'ajax'        => 1,
-    ),
-    'block_edureportbook_separatestore' => array(
-        'classname'   => 'block_edureportbook_external',
-        'methodname'  => 'separatestore',
-        'classpath'   => 'blocks/edureportbook/externallib.php',
-        'description' => 'Store the separate-form of a course',
-        'type'        => 'write',
         'ajax'        => 1,
     ),
 );

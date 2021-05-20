@@ -26,137 +26,53 @@ defined('MOODLE_INTERNAL') || die;
 require_once($CFG->libdir . "/externallib.php");
 
 class block_edureportbook_external extends external_api {
-    /**
-     * More or less the same as in pages/assignstudents.php
-    **/
-    public static function participantsform_parameters() {
+    public static function relation_parameters() {
         return new external_function_parameters(array(
-            'courseid' => new external_value(PARAM_INT, 'courseid')
+            'courseid' => new external_value(PARAM_INT, 'courseid'),
+            'studentid' => new external_value(PARAM_INT, 'studentid'),
+            'parentid' => new external_value(PARAM_INT, 'parentid'),
+            'to' => new external_value(PARAM_INT, 'to'),
         ));
     }
-    public static function participantsform($courseid) {
+    public static function relation($courseid, $studentid, $parentid, $to) {
         global $CFG, $PAGE;
-        $params = self::validate_parameters(self::participantsform_parameters(), array('courseid' => $courseid));
-        $courseid = $params['courseid'];
-        if (!empty($courseid)) {
-            require_once($CFG->dirroot . '/blocks/edureportbook/lib.php');
-            require_login($courseid);
-            $context = context_course::instance($courseid);
-            $PAGE->set_context($context);
-            $mform = block_edureportbook_lib::handle_participants_form();
-            return $mform->render();
+        $params = self::validate_parameters(self::relation_parameters(), array('courseid' => $courseid, 'studentid' => $studentid, 'parentid' => $parentid, 'to' => $to));
+
+        require_once($CFG->dirroot . '/blocks/edureportbook/lib.php');
+        $group = \block_edureportbook\lib::get_student_group($params['studentid'], $params['courseid']);
+        require_once($CFG->dirroot . '/group/lib.php');
+
+        if ($to == 1) {
+            \groups_add_member($group->id, $params['parentid']);
         } else {
-            return '';
+            \groups_remove_member($group->id, $params['parentid']);
         }
+        return $to;
     }
-    public static function participantsform_returns() {
-        return new external_value(PARAM_RAW, 'Returns the html code of the form.');
+    public static function relation_returns() {
+        return new external_value(PARAM_INT, 'Returns the new state of relation');
     }
 
-    /**
-     * Store the results of participantsform
-    **/
-    public static function participantsstore_parameters() {
+    public static function relations_parameters() {
         return new external_function_parameters(array(
-            'data' => new external_value(PARAM_RAW, 'JSON encoded form data'),
+            'courseid' => new external_value(PARAM_INT, 'courseid'),
+            'studentid' => new external_value(PARAM_INT, 'studentid'),
         ));
     }
-    public static function participantsstore($data) {
-        global $CFG, $PAGE;
-        $params = self::validate_parameters(self::participantsstore_parameters(), array('data' => $data));
-        $data = json_decode($params['data']);
-        $courseid = $data->id;
-        if (!empty($courseid)) {
-            require_once($CFG->dirroot . '/blocks/edureportbook/lib.php');
-            require_login($courseid);
-            $context = context_course::instance($courseid);
-            $PAGE->set_context($context);
-            return block_edureportbook_lib::handle_participants_store($data) ? 1 : 0;
-        } else {
-            return 0;
+    public static function relations($courseid, $studentid) {
+        global $CFG;
+        $params = self::validate_parameters(self::relations_parameters(), array('courseid' => $courseid, 'studentid' => $studentid));
+        require_once($CFG->dirroot . '/blocks/edureportbook/lib.php');
+        $group = \block_edureportbook\lib::get_student_group($params['studentid'], $params['courseid']);
+        require_once($CFG->dirroot . '/group/lib.php');
+        $members = \groups_get_members($group->id);
+        $parentids = [];
+        foreach ($members as $member) {
+            $parentids[] = $member->id;
         }
+        return implode(",", $parentids);
     }
-    public static function participantsstore_returns() {
-        return new external_value(PARAM_INT, 'Returns 1 if saving was successful, 0 if not.');
-    }
-
-    /**
-     * Remove the block from course scope.
-    **/
-    public static function removeblock_parameters() {
-        return new external_function_parameters(array(
-            'courseid' => new external_value(PARAM_INT, 'The courseid'),
-        ));
-    }
-    public static function removeblock($courseid) {
-        global $CFG, $PAGE;
-        $params = self::validate_parameters(self::removeblock_parameters(), array('courseid' => $courseid));
-        $courseid = $params['courseid'];
-        if (!empty($courseid)) {
-            require_once($CFG->dirroot . '/blocks/edureportbook/lib.php');
-            require_login($courseid);
-            $context = context_course::instance($courseid);
-            $PAGE->set_context($context);
-            return block_edureportbook_lib::remove_block();
-        } else {
-            return 0;
-        }
-    }
-    public static function removeblock_returns() {
-        return new external_value(PARAM_INT, 'Returns 1 if successful, otherwise 0.');
-    }
-
-    /**
-     * More or less the same as in pages/separate.php
-    **/
-    public static function separateform_parameters() {
-        return new external_function_parameters(array(
-            'courseid' => new external_value(PARAM_INT, 'courseid')
-        ));
-    }
-    public static function separateform($courseid) {
-        global $CFG, $PAGE;
-        $params = self::validate_parameters(self::separateform_parameters(), array('courseid' => $courseid));
-        $courseid = $params['courseid'];
-        if (!empty($courseid)) {
-            require_once($CFG->dirroot . '/blocks/edureportbook/lib.php');
-            require_login($courseid);
-            $context = context_course::instance($courseid);
-            $PAGE->set_context($context);
-            $mform = block_edureportbook_lib::handle_separate_form();
-            return $mform->render();
-        } else {
-            return '';
-        }
-    }
-    public static function separateform_returns() {
-        return new external_value(PARAM_RAW, 'Returns the html code of the form.');
-    }
-
-    /**
-     * Store the results of separateform
-    **/
-    public static function separatestore_parameters() {
-        return new external_function_parameters(array(
-            'data' => new external_value(PARAM_RAW, 'JSON encoded form data'),
-        ));
-    }
-    public static function separatestore($data) {
-        global $CFG, $PAGE;
-        $params = self::validate_parameters(self::separatestore_parameters(), array('data' => $data));
-        $data = json_decode($params['data']);
-        $courseid = $data->id;
-        if (!empty($courseid)) {
-            require_once($CFG->dirroot . '/blocks/edureportbook/lib.php');
-            require_login($courseid);
-            $context = context_course::instance($courseid);
-            $PAGE->set_context($context);
-            return block_edureportbook_lib::handle_separate_store($data) ? 1 : 0;
-        } else {
-            return 0;
-        }
-    }
-    public static function separatestore_returns() {
-        return new external_value(PARAM_INT, 'Returns 1 if saving was successful, 0 if not.');
+    public static function relations_returns() {
+        return new external_value(PARAM_RAW, 'All relations as JSON-string');
     }
 }
