@@ -73,12 +73,12 @@ $string['assistant_stage_protection'] = 'Privacy';
 $string['assistant_stage_finish'] = 'Finish';
 
 $string['assistant_users_enrolments'] = 'You can use any enrolment-method your Moodle site provides. Please ensure, that parents are assigned the role "{$a->rolename_legalguardian}" and students the role "{$a->rolename_student}"!';
-$string['assistant_users_relation'] = 'Trigger relations between students and legal guardians.';
+$string['assistant_users_relation'] = 'Trigger relations between students and legal guardians';
 $string['assistant_users_relation_description'] = '
     <p>
         Please select one of your pupils from the left side first. All related legal
         guardians will be marked as active on the right side, if there is already
-        a relation set up between thos two. You can enable and disable the relation
+        a relation set up between those two. You can enable and disable the relation
         just by clicking on the name of the respective legal guardian.
     </p>
     <p>
