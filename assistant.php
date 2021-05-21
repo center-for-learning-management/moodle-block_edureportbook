@@ -47,6 +47,9 @@ if (empty($role_legalguardian) && empty($role_student)) {
     throw new \moodle_exception('role_missing_configuration', 'block_edureportbook', $courseurl);
 }
 
+if (!\block_edureportbook\lib::is_teacher()) {
+    throw new \moodle_exception('accessdenied', 'admin', $CFG->wwwroot);
+}
 
 $PAGE->set_url('/blocks/edureportbook/assistant.php', array('courseid' => $courseid, 'stage' => $stage));
 
