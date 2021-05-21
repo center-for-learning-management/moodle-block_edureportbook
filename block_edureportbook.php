@@ -53,7 +53,7 @@ class block_edureportbook extends block_base {
             $url = new \moodle_url('/blocks/edureportbook/assistant.php', array('courseid' => $COURSE->id));
             $btnlabel = get_string('edureportbook:addinstance', 'block_edureportbook');
             $btn = [
-                "<a href=\"$url\" class=\"btn btn-primary btn-block\">",
+                "<a href=\"$url\">",
                 "<i class=\"fa fa-wrench\"></i>",
                 $btnlabel,
                 "</a>",
