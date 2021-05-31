@@ -15,24 +15,10 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 <div class="edureportbook_assistant_progress finish">
-    {{#blockisactive}}
-        <p>
-            {{#str}} assistant_finish_removeblock, block_edureportbook {{/str}}
-        </p>
-        <a href="{{wwwroot}}/blocks/edureportbook/assistant.php?courseid={{courseid}}&stage={{stage}}&resolve=removeassistant"
-           class="btn btn-primary btn-block">
-           <i class="fa fa-chevron-circle-right"></i>
-           {{#str}} step_remove_block, block_edureportbook {{/str}}
-        </a>
-    {{/blockisactive}}
-    {{^blockisactive}}
-        <p style="text-align: center">
-            <i class="fa fa-thumbs-up" style="font-size: 150px;"></i>
-        </p>
-        <p>
-            {{#str}} assistant_finish_done, block_edureportbook {{/str}}
-        </p>
-    {{/blockisactive}}
-
-
+    <p style="text-align: center">
+        <i class="fa fa-thumbs-up" style="font-size: 150px;"></i>
+    </p>
+    <p>
+        {{#str}} assistant_finish_done, block_edureportbook {{/str}}
+    </p>
 </div>

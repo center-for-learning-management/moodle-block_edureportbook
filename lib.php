@@ -59,7 +59,8 @@ class lib {
      * @return grouping.
     **/
     public static function get_grouping() {
-        global $COURSE;
+        global $CFG, $COURSE;
+        require_once($CFG->dirroot . '/group/lib.php');
         $grouping = groups_get_grouping_by_idnumber($COURSE->id, 'edureportbook');
         if (empty($grouping)) {
             $grouping = (object) array('courseid' => $COURSE->id, 'name' => get_string('pluginname', 'block_edureportbook'), 'idnumber' => 'edureportbook', 'timecreated' => time(), 'description' => '');

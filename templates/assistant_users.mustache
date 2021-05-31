@@ -15,9 +15,10 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 <div class="edureportbook_assistant_progress users">
+    <h3>{{#str}} assistant_users_enrolments, block_edureportbook {{/str}}</h3>
     <p>
         {{#str}}
-                assistant_users_enrolments, block_edureportbook, {
+                assistant_users_enrolments_description, block_edureportbook, {
                     "rolename_legalguardian": {{#quote}}{{rolename_legalguardian}}{{/quote}},
                     "rolename_student": {{#quote}}{{rolename_student}}{{/quote}}
                 }
@@ -39,35 +40,47 @@
 
     <h3>{{#str}} assistant_users_relation, block_edureportbook {{/str}}</h3>
     {{#str}} assistant_users_relation_description, block_edureportbook {{/str}}
-    <div class="progressbar relations" style="grid-template-columns: repeat(2, 1fr);">
-        <div id="students-{{uniqid}}" style="border-right: 1px solid black;">
-            <p><strong>{{#str}} role_student, block_edureportbook {{/str}}</strong></p>
-            {{#students}}
-                <a id="student-{{uniqid}}-{{id}}" class="name-label" data-id="{{id}}"
-                   onclick="require(['block_edureportbook/main'], function(M) { M.relation_load('{{uniqid}}', {{courseid}}, {{id}}); }); return false;">
-                    <span class="picture"><img src="{{picturenolink}}"></span>
-                    <span class="firstname">{{firstname}} </span>
-                    <span class="lastname">{{lastname}}</span>
-                </a>
-            {{/students}}
+    {{#hasusers}}
+        <div class="progressbar relations" style="grid-template-columns: repeat(2, 1fr);">
+            <div id="students-{{uniqid}}" style="border-right: 1px solid black;">
+                <p><strong>{{#str}} role_student, block_edureportbook {{/str}}</strong></p>
+                {{#students}}
+                    <a id="student-{{uniqid}}-{{id}}" class="name-label {{#relationisset}} relationisset {{/relationisset}}" data-id="{{id}}"
+                       onclick="require(['block_edureportbook/main'], function(M) { M.relation_load('{{uniqid}}', {{courseid}}, {{id}}); }); return false;">
+                        <!-- <span class="picture"><img src="{{picturenolink}}"></span> -->
+                        <span class="firstname">{{firstname}} </span>
+                        <span class="lastname">{{lastname}}</span>
+                    </a>
+                {{/students}}
+            </div>
+            <div id="legalguardians-{{uniqid}}">
+                <p><strong>{{#str}} role_legalguardian, block_edureportbook {{/str}}</strong></p>
+                {{#legalguardians}}
+                    <a id="legalguardian-{{uniqid}}-{{id}}" class="name-label" data-id="{{id}}"
+                       onclick="require(['block_edureportbook/main'], function(M) { M.relation_set('{{uniqid}}', {{courseid}}, {{id}}); }); return false;">
+                        <!-- <span class="picture"><img src="{{picturenolink}}"></span> -->
+                        <span class="firstname">{{firstname}}</span>
+                        <span class="lastname">{{lastname}}</span>
+                    </a>
+                {{/legalguardians}}
+            </div>
         </div>
-        <div id="legalguardians-{{uniqid}}">
-            <p><strong>{{#str}} role_legalguardian, block_edureportbook {{/str}}</strong></p>
-            {{#legalguardians}}
-                <a id="legalguardian-{{uniqid}}-{{id}}" class="name-label" data-id="{{id}}"
-                   onclick="require(['block_edureportbook/main'], function(M) { M.relation_set('{{uniqid}}', {{courseid}}, {{id}}); }); return false;">
-                    <span class="picture"><img src="{{picturenolink}}"></span>
-                    <span class="firstname">{{firstname}}</span>
-                    <span class="lastname">{{lastname}}</span>
-                </a>
-            {{/legalguardians}}
-        </div>
-    </div>
+    {{/hasusers}}
+    {{^hasusers}}
+        <p class="alert alert-danger">
+            {{#str}} assistant_users_relation_nouserwarning, block_edureportbook {{/str}}<br />
+            <a href="#" onclick="location.reload();" class="btn btn-secondary">
+                <i class="fa fa-repeat"></i>
+                {{#str}} reload {{/str}}
+            </a>
+        </p>
+    {{/hasusers}}
 </div>
-
+{{#firststudentid}}
 {{#js}}
     require(['block_edureportbook/main'], function(M) {
         M.relation_load('{{uniqid}}', {{courseid}}, {{firststudentid}});
     });
     return false;
 {{/js}}
+{{/firststudentid}}

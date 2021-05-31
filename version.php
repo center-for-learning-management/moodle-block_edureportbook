@@ -23,11 +23,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2021052100;        // The current plugin version (Date: YYYYMMDDXX)
-$plugin->requires  = 2018050800;        // Requires this Moodle version
-$plugin->component = 'block_edureportbook';    // Full name of the plugin (used for diagnostics)
+$plugin->version   = 2021053100;
+$plugin->requires  = 2018050800;
+$plugin->component = 'block_edureportbook';
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = 'V 1.9.0';
+$plugin->release = 'V 2.0.0';
 $plugin->dependencies = [
     'block_enrolcode' => 2020061000,
 ];

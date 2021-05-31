@@ -32,8 +32,9 @@ $courseurl = new \moodle_url('/course/view.php', array('id' => $courseid));
 $PAGE->set_url('/blocks/edureportbook/assistant.php', array('courseid' => $courseid));
 
 $stages = [
-    'progress_about', 'progress_users',
-    'progress_privacy', 'progress_finish'
+    'progress_users',
+    'progress_privacy',
+    'progress_finish'
 ];
 $stage = optional_param('stage', 0, PARAM_INT);
 $stagenamed = $stages[$stage];
@@ -114,7 +115,7 @@ switch ($resolve) {
     case 'removeassistant':
         \block_edureportbook\lib::remove_block();
         \rebuild_course_cache($courseid);
-        \redirect($PAGE->url);
+        \redirect(new \moodle_url('/course/view.php', array('id' => $courseid)));
     break;
 }
 
@@ -151,9 +152,22 @@ switch ($stagenamed) {
         $xparams['rolename_legalguardian'] = (!empty($role->name)) ? $role->name : $role->shortname;
 
         $xparams['students'] = \block_edureportbook\lib::get_students();
+        require_once($CFG->dirroot . '/group/lib.php');
+        foreach ($xparams['students'] as &$student) {
+            $group = \block_edureportbook\lib::get_student_group($student->id, $courseid);
+            $members = \groups_get_members($group->id);
+            if (count($members) > 1) {
+                $student->relationisset = true;
+            }
+        }
         $xparams['legalguardians'] = \block_edureportbook\lib::get_legalguardians();
 
+
         $xparams['firststudentid'] = $xparams['students'][0]->id;
+
+        $xparams['hasstudents'] = count($xparams['students']) > 0;
+        $xparams['haslegalguardians'] = count($xparams['legalguardians']) > 0;
+        $xparams['hasusers'] = count($xparams['students']) > 0 && count($xparams['legalguardians']) > 0;
 
         echo $OUTPUT->render_from_template('block_edureportbook/assistant_users', $xparams);
     break;
@@ -218,8 +232,8 @@ switch ($stagenamed) {
     break;
     case 'progress_finish':
         $backurl = '';
-        $proceedurl = new \moodle_url('/course/view.php', array('id' => $courseid));
-        $proceedlabel = get_string('proceed_to_course', 'block_edureportbook');
+        $proceedurl = new \moodle_url('/blocks/edureportbook/assistant.php', array('courseid' => $courseid, 'stage' => $stage, 'resolve' => 'removeassistant'));
+        $proceedlabel = get_string('assistant_finish_btn', 'block_edureportbook');
     break;
 }
 
@@ -231,6 +245,5 @@ $params = [
 ];
 
 echo $OUTPUT->render_from_template('block_edureportbook/assistant_progress_step', $params);
-
 
 echo $OUTPUT->footer();

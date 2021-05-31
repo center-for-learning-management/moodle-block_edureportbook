@@ -4,6 +4,7 @@ define(
     return {
         relation_load: function(uniqid, courseid, studentid) {
             console.log('block_edureportbook/relation_load(uniqid, courseid, studentid)', uniqid, courseid, studentid);
+            if (typeof(studentid) == 'undefined') { return; }
             $('#students-' + uniqid + ' .name-label, #legalguardians-' + uniqid + ' .name-label').removeClass('selected');
             $('#student-' + uniqid + '-' + studentid).addClass('selected');
             $('#legalguardians-' + uniqid + ' .name-label').removeClass('pending');
@@ -47,6 +48,11 @@ define(
                             $('#legalguardian-' + uniqid + '-' + parentid).addClass('selected');
                         } else {
                             $('#legalguardian-' + uniqid + '-' + parentid).removeClass('selected');
+                        }
+                        if ($('#legalguardians-' + uniqid + ' .name-label.selected').length > 0) {
+                            $('#student-' + uniqid + '-' + studentid).addClass('relationisset');
+                        } else {
+                            $('#student-' + uniqid + '-' + studentid).removeClass('relationisset');
                         }
                     }
                 },

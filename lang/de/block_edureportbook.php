@@ -53,24 +53,15 @@ $string['assistant_descr_about'] = '
         Mehr Informationen zur Moodle Mobile App erhalten Sie unter
         <a href="https://moodle.com/de/app/" target="_blank">https://moodle.com/de/app/</a>!
     </p>';
+$string['assistant_finish_btn'] = 'Assistenten beenden';
 $string['assistant_finish_done'] = '
     <p>
-        Wunderbar, alle Schritte dieses Assistenten wurden ausgeführt und der Block
-        von der Kursseite entfernt. Hoffentlich war dieser Assistent hilfreich für Sie.
+        Wunderbar, alle Schritte dieses Assistenten wurden ausgeführt. Sie können
+        diesen Assistenten nun beenden. Hoffentlich war dieser Assistent hilfreich für Sie.
         Jederzeit können Sie ihn reaktivieren, indem Sie den Block zur Kursseite
         wieder hinzufügen.
     </p>';
-$string['assistant_finish_removeblock'] = '
-    <p>
-        Wunderbar, alle Schritte dieses Assistenten wurden ausgeführt, allerdings ist
-        der Block noch auf der Kursseite zu sehen. Damit können Sie jederzeit wieder
-        zu diesem Assistenten zurückkehren.
-    </p>
-    <p>
-        Problemlos können Sie aber den Block auch entfernen, dabei gehen keine Daten verloren.
-        Um den Assistenten wieder aufzurufen, können Sie einfach wieder den Block
-        zum Kurs hinzufügen.
-    </p>';
+
 $string['assistant_invalid_stage'] = 'Ungültiger Fortschritt angefordert.';
 
 $string['assistant_stage_about'] = 'Über';
@@ -78,7 +69,8 @@ $string['assistant_stage_users'] = 'Teilnehmer/innen';
 $string['assistant_stage_protection'] = 'Privatsphäre';
 $string['assistant_stage_finish'] = 'Abschluss';
 
-$string['assistant_users_enrolments'] = 'Sie können jede Einschreibemethode verwenden, die Ihr Moodle-System ermöglicht. Bitte stellen Sie sicher, dass Erziehungsberechtigten die Rolle "{$a->rolename_legalguardian}" und Schüler/innen die Rolle "{$a->rolename_student}" zugewiesen wird!';
+$string['assistant_users_enrolments'] = 'Teilnehmer/innen einschreiben';
+$string['assistant_users_enrolments_description'] = 'Sie können jede Einschreibemethode verwenden, die Ihr Moodle-System ermöglicht. Bitte stellen Sie sicher, dass Erziehungsberechtigten die Rolle "{$a->rolename_legalguardian}" und Schüler/innen die Rolle "{$a->rolename_student}" zugewiesen wird!';
 $string['assistant_users_relation'] = 'Verbindung zwischen Schüler/innen und Erziehungsberechtigten';
 $string['assistant_users_relation_description'] = '
     <p>
@@ -93,6 +85,7 @@ $string['assistant_users_relation_description'] = '
         der Vergangenheit ausgetauschte Informationen, die den/die Schüler/in
         betreffen.
     </p>';
+$string['assistant_users_relation_nouserwarning'] = 'Sie müssen zuerst Teilnehmer/innen einschreiben, vor Sie fortsetzen können!';
 
 $string['condition'] = 'Voraussetzung';
 $string['condition_coursegroupmode'] = 'Gruppenmodus des Kurses';

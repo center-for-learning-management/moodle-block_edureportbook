@@ -51,20 +51,14 @@ $string['assistant_descr_about'] = '
         More information regarding the Moodle Mobile App can be obtained at
         <a href="https://moodle.com/de/app/" target="_blank">https://moodle.com/de/app/</a>!
     </p>';
+$string['assistant_finish_btn'] = 'Close assistant';
 $string['assistant_finish_done'] = '
     <p>
-        Great, all steps of this assistant have been processed and the block has been removed.
-        We hope, that this assistant was helpful for you. You can always re-enable this assistant by adding the block to your course page.
-    </p>';
-$string['assistant_finish_removeblock'] = '
-    <p>
-        Great, all steps of this assistant have been processed. Still, the block is
-        shown on your course page, so that you can come back here later.
-    </p>
-    <p>
-        You can simply remove the block with the following button. No data will be lost.
+        Great, all steps of this assistant have been processed. You can now close
+        this assistant. We hope, that this assistant was helpful for you.
         You can always re-enable this assistant by adding the block to your course page.
     </p>';
+
 $string['assistant_invalid_stage'] = 'Invalid process stage given.';
 
 $string['assistant_stage_about'] = 'About';
@@ -72,7 +66,8 @@ $string['assistant_stage_users'] = 'Users';
 $string['assistant_stage_protection'] = 'Privacy';
 $string['assistant_stage_finish'] = 'Finish';
 
-$string['assistant_users_enrolments'] = 'You can use any enrolment-method your Moodle site provides. Please ensure, that parents are assigned the role "{$a->rolename_legalguardian}" and students the role "{$a->rolename_student}"!';
+$string['assistant_users_enrolments'] = 'Enrol users';
+$string['assistant_users_enrolments_description'] = 'You can use any enrolment-method your Moodle site provides. Please ensure, that parents are assigned the role "{$a->rolename_legalguardian}" and students the role "{$a->rolename_student}"!';
 $string['assistant_users_relation'] = 'Trigger relations between students and legal guardians';
 $string['assistant_users_relation_description'] = '
     <p>
@@ -85,6 +80,7 @@ $string['assistant_users_relation_description'] = '
         Attention, the selected legal guardians will also be able to obtain
         messages that were exchanged in the past regarding to respective student.
     </p>';
+$string['assistant_users_relation_nouserwarning'] = 'You must enrol users before you can proceed!';
 
 $string['condition'] = 'Condition';
 $string['condition_coursegroupmode'] = 'Group mode of course';
