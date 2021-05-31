@@ -17,7 +17,8 @@ and one forum with separated groups for private communication.
 
 ![The block](doc/img/01_block.png)
 ![Setting relations](doc/img/02_relations.png)
-![Groupmode](doc/img/03_groupmode.png)
+![Groupmode](doc/img/03_privacy.png)
+![Finish](doc/img/04_finish.png)
 
 For installation and configuration please refer to the
 [installation-reference](doc/installation.md).
