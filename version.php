@@ -23,7 +23,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2021062200;
+$plugin->version   = 2021122200;
 $plugin->requires  = 2018050800;
 $plugin->component = 'block_edureportbook';
 $plugin->maturity = MATURITY_STABLE;
