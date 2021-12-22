@@ -27,7 +27,7 @@ $plugin->version   = 2021122200;
 $plugin->requires  = 2018050800;
 $plugin->component = 'block_edureportbook';
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = 'V 2.0.1';
+$plugin->release = 'V 2.1.0';
 $plugin->dependencies = [
     'block_enrolcode' => 2020061000,
 ];
