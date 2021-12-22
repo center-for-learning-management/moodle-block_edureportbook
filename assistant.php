@@ -32,9 +32,10 @@ $courseurl = new \moodle_url('/course/view.php', array('id' => $courseid));
 $PAGE->set_url('/blocks/edureportbook/assistant.php', array('courseid' => $courseid));
 
 $stages = [
+    'progress_about',
     'progress_users',
     'progress_privacy',
-    'progress_finish'
+    'progress_finish',
 ];
 $stage = optional_param('stage', 0, PARAM_INT);
 $stagenamed = $stages[$stage];
@@ -89,8 +90,10 @@ switch ($resolve) {
     case 'groupforum':
         require_once($CFG->dirroot . '/course/lib.php');
         $item = (object) array(
+            'cmidnumber' => 0,
             'completion' => 0,
             'course' => $courseid,
+            'grade_forum' => 0,
             'groupingid' => ($resolve == 'groupforum') ? $grouping->id : 0,
             'groupmode' => ($resolve == 'groupforum') ? 1 : 0,
             'forcesubscribe' => 1,
@@ -105,6 +108,7 @@ switch ($resolve) {
             'showdescription' => 1,
             'timemodified' => time(),
             'timecreated' => time(),
+            'type' => 'general',
             'visible' => 1,
             'visibleoncoursepage' => 1,
         );
@@ -163,7 +167,7 @@ switch ($stagenamed) {
         $xparams['legalguardians'] = \block_edureportbook\lib::get_legalguardians();
 
 
-        $xparams['firststudentid'] = $xparams['students'][0]->id;
+        $xparams['firststudentid'] = !empty($xparams['students'][0]->id) ? $xparams['students'][0]->id : 0;
 
         $xparams['hasstudents'] = count($xparams['students']) > 0;
         $xparams['haslegalguardians'] = count($xparams['legalguardians']) > 0;

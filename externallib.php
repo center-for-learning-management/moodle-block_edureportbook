@@ -38,6 +38,8 @@ class block_edureportbook_external extends external_api {
         global $CFG, $PAGE;
         $params = self::validate_parameters(self::relation_parameters(), array('courseid' => $courseid, 'studentid' => $studentid, 'parentid' => $parentid, 'to' => $to));
 
+        $ctx = \context_course::instance($params['courseid']);
+        require_capability('moodle/course:managegroups', $ctx);
         require_once($CFG->dirroot . '/blocks/edureportbook/lib.php');
         $group = \block_edureportbook\lib::get_student_group($params['studentid'], $params['courseid']);
         require_once($CFG->dirroot . '/group/lib.php');
@@ -62,6 +64,9 @@ class block_edureportbook_external extends external_api {
     public static function relations($courseid, $studentid) {
         global $CFG;
         $params = self::validate_parameters(self::relations_parameters(), array('courseid' => $courseid, 'studentid' => $studentid));
+
+        $ctx = \context_course::instance($params['courseid']);
+        require_capability('moodle/course:managegroups', $ctx);
         require_once($CFG->dirroot . '/blocks/edureportbook/lib.php');
         $group = \block_edureportbook\lib::get_student_group($params['studentid'], $params['courseid']);
         require_once($CFG->dirroot . '/group/lib.php');
