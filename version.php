@@ -23,11 +23,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2021122200;
+$plugin->version   = 2021122500;
 $plugin->requires  = 2018050800;
 $plugin->component = 'block_edureportbook';
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = 'V 2.1.0';
+$plugin->release = 'V 2.1.1';
 $plugin->dependencies = [
-    'block_enrolcode' => 2020061000,
+    'block_enrolcode' => 2021111801,
 ];
